@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload Test</title>
+</head>
+<body>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <div>
+      <label>First Name</label>
+      <input type="text" name="first_name">
+    </div>
+    <label>First Name</label>
+    <input type="text" name="first_name">
+    <div class="field">
+      <label for="last_name">Last Name <span class="asterisk">*</span></label>
+      <input type="text" id="last_name" name="job_application[last_name]" aria-required="true" maxlength="255" autocomplete="family-name">
+    </div>
+
+    <div>
+      <label>City</label>
+      <input type="text" name="city">
+    </div>
+
+    <input type="file" name="fileUpload" id="fileInput">
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

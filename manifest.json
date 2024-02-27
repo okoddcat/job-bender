@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Job Apply Helper",
+  "description": "",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "24": "images/icon24.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "64": "images/icon64.png"
+    },
+    "default_title": "Click to config"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+
+    "storage", "scripting", "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "js": ["jquery-3.7.1.min.js", "scripts/content.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
