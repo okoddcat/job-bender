@@ -11,20 +11,24 @@ A Chrome extension job apply for auto fill the forms on job position pages.
 
 | Features | Status |
 | ------------------------------------------- | ---- |
-| 🛡️ All data are saved on your local          | ✅    |
+| 💾 Save data for later use                   | ✅    |
+| 🛡️ All your data are saved on your local     | ✅    |
 | 💻 Opening jobs list                         | ✅    |
-| 📝 Auto fill an apply form after page loaded | ✅    |
+| 🤖 Auto fill an apply form after page loaded | ✅    |
 | 🤾 Refill an apply form manually             | ✅    |
+| 🤮 Mark stale jobs | 🚫 |
+| 📝 Record applied jobs | 🚫 |
 
 
 
 ## How to setup
 
 1. open Chrome and clone this repo `git clone git@github.com:okoddcat/job-apply-helper.git`
-2. goto chrome extensions `chrome://extensions/`
-3. click on the ` Load unpacked` button and choose this repo
-4. Pin this extension at the top right corner of your Chrome bar
-5. Done :rocket:
+2. `git pull` if you want to pull down the latest jobs
+3. go to chrome extensions `chrome://extensions/`
+4. click on the ` Load unpacked` button and choose this repo
+5. Pin this extension at the top right corner of your Chrome bar
+6. Done :rocket:
 
 | Load extension | Pin extension |
 | ---- | ---- |
