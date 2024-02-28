@@ -1,8 +1,8 @@
-#  Job Apply Helper
+#  🤖 Job Bender - a Job Apply Helper
 
 A Chrome extension job apply for auto fill the forms on job position pages.
 
-⚠️ This extension is still under development, it may contain bugs.
+⚠️ This extension is still under development, it may contain bugs 👾
 
 
 
@@ -23,7 +23,7 @@ A Chrome extension job apply for auto fill the forms on job position pages.
 
 ## How to setup
 
-1. open Chrome and clone this repo `git clone git@github.com:okoddcat/job-apply-helper.git`
+1. open Chrome and clone this repo `git clone git@github.com:okoddcat/job-bender.git`
 2. `git pull` if you want to pull down the latest jobs
 3. go to chrome extensions `chrome://extensions/`
 4. click on the ` Load unpacked` button and choose this repo
