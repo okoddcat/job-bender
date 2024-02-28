@@ -54,8 +54,15 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Data saved successfully!");
         });
     });
-
-    document.getElementById('fill-it').addEventListener('click', function () {
-      chrome.runtime.sendMessage({ message: 'fill' });
+    document.getElementById('fill-it').addEventListener('click', function() {
+        chrome.runtime.sendMessage({
+            message: 'fill'
+        });
+    });
+    var openButton = document.getElementById('open-jobs');
+    openButton.addEventListener('click', function() {
+        chrome.tabs.create({
+            url: chrome.runtime.getURL('jobs.html')
+        });
     });
 });

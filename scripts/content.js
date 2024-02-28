@@ -75,6 +75,10 @@ function fill(){
             name: "last name",
             regex: "\\blast[\\s_-]*name\\b",
             value: result.profile.lastName
+        },{
+            name: "full name",
+            regex: "\\bfull[\\s_-]*name\\b",
+            value: [result.profile.firstName, result.profile.lastName].filter(Boolean).join(" ")
         }, {
             name: "email",
             regex: "\\bemail\\b",

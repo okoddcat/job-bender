@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Search and Display Results
+        </title>
+        <style>
+            html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+    #container{
+      width: 600px;
+    }
+
+    #search-box {
+      width: 100%;
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+    
+    #search-input {
+      width: 100%;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    #search-button{
+      font-weight: bold;
+    }
+    
+    #results {
+      width: 100%;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 18px;
+    }
+
+    #results a:hover {
+      font-weight: bold;
+    }
+
+    #results a:visited {
+      color: #888;
+    }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="search-box">
+                <input id="search-input" placeholder="Search by title or company" type="text">
+                    <button id="search-button">
+                        Search
+                    </button>
+                </input>
+            </div>
+            <div id="results">
+            </div>
+        </div>
+        <script src="scripts/jobs.js">
+        </script>
+    </body>
+</html>
