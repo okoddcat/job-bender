@@ -1,8 +1,8 @@
 #  Job Apply Helper
 
+A job apply helper for auto fill the forms on job position pages.
+
 ⚠️ This extension is still under development, it may contain bugs.
-
-
 
 
 ## Features
@@ -44,6 +44,6 @@
 
 
 
-##License
+## License
 
 [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
