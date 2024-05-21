@@ -1,7 +1,8 @@
 class ElementFinder {
-    constructor(regexValues) {
-        this.regexValues = regexValues;
+    regexValues;
+    constructor() {
         this.allElements = document.getElementsByTagName("*");
+        this.count = 0;
     }
     findClosestInputElement(element) {
         let $element = $(element);
@@ -26,7 +27,8 @@ class ElementFinder {
                 let closestInputElement = this.findClosestInputElement(element);
                 if (closestInputElement) {
                     closestInputElement.val(regexValue.value);
-                    closestInputElement.trigger('input');
+                    closestInputElement.trigger("input");
+                    this.count++;
                 } else {
                     console.log("No input element found: " + regexValue.name);
                 }
@@ -50,86 +52,88 @@ class ElementFinder {
         }
     }
 }
-
-function dataURLToBlob(dataURL) {
-    const arr = dataURL.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
+class Operator {
+    constructor(finder) {
+        this.finder = finder;
     }
-    return new Blob([u8arr], {
-        type: mime
-    });
-}
-
-function fill(){
-    chrome.storage.local.get(["profile"], function(result) {
-        let regexValues = [{
-            name: "first name",
-            regex: "\\bfirst[\\s_-]*name\\b",
-            value: result.profile.firstName
-        }, {
-            name: "last name",
-            regex: "\\blast[\\s_-]*name\\b",
-            value: result.profile.lastName
-        },{
-            name: "full name",
-            regex: "\\bfull[\\s_-]*name\\b",
-            value: [result.profile.firstName, result.profile.lastName].filter(Boolean).join(" ")
-        }, {
-            name: "email",
-            regex: "\\bemail\\b",
-            value: result.profile.email
-        }, {
-            name: "phone",
-            regex: "\\phone\\b",
-            value: result.profile.phone
-        }, {
-            name: "salary",
-            regex:"\\bsalary\\b",
-            value: result.profile.salary
-        }, {
-            name: "location",
-            regex: "\\bcity|location\\b",
-            value: result.profile.location
-        }];
-        console.log(regexValues);
-        let elementFinder = new ElementFinder(regexValues);
-        elementFinder.searchElements();
-    });
-
-    const fileInput = document.querySelector('input[type=file]');
-    if (fileInput) {
-        /\bresume\b/i.test(fileInput.name) ? fillResume : '';
-    }
-};
-
-function fillResume(){
-    chrome.storage.local.get(["resume"], function(result) {
-        const fileInput = document.querySelector('input[type=file]');
-        const metadata = {
-            type: result.resume.type
-        };
-        const blob = dataURLToBlob(result.resume.content);
-        file = new File([blob], result.resume.name, metadata);
-        const fileList = new DataTransfer();
-        fileList.items.add(file);
-        if (fileInput) {
-            fileInput.files = fileList.files;
-            const event = new Event('change', { bubbles: true });
-            fileInput.dispatchEvent(event);
+    dataURLToBlob(dataURL) {
+        const arr = dataURL.split(",");
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
         }
-        console.log(fileInput.files);
-    });
+        return new Blob([u8arr], {
+            type: mime,
+        });
+    }
+    fill() {
+        chrome.storage.local.get(["profile"], (result) => {
+            let regexValues = [{
+                name: "first name",
+                regex: "\\bfirst[\\s_-]*name\\b",
+                value: result.profile.firstName,
+            }, {
+                name: "last name",
+                regex: "\\blast[\\s_-]*name\\b",
+                value: result.profile.lastName,
+            }, {
+                name: "full name",
+                regex: "\\bfull[\\s_-]*name\\b",
+                value: [result.profile.firstName, result.profile.lastName].filter(Boolean).join(" "),
+            }, {
+                name: "email",
+                regex: "\\bemail\\b",
+                value: result.profile.email,
+            }, {
+                name: "phone",
+                regex: "\\phone\\b",
+                value: result.profile.phone,
+            }, {
+                name: "salary",
+                regex: "\\bsalary\\b",
+                value: result.profile.salary,
+            }, {
+                name: "location",
+                regex: "\\bcity|location\\b",
+                value: result.profile.location,
+            }, ];
+            console.log(this.finder)
+            this.finder.regexValues = regexValues;
+            this.finder.searchElements();
+            if (this.finder.count > 2) {
+                this.fillResume()
+            }
+        });
+    }
+    fillResume() {
+        chrome.storage.local.get(["resume"], (result) => {
+            const fileInput = document.querySelector("input[type=file]");
+            const metadata = {
+                type: result.resume.type,
+            };
+            const blob = this.dataURLToBlob(result.resume.content);
+            const file = new File([blob], result.resume.name, metadata);
+            const fileList = new DataTransfer();
+            fileList.items.add(file);
+            if (fileInput) {
+                fileInput.files = fileList.files;
+                const event = new Event("change", {
+                    bubbles: true
+                });
+                fileInput.dispatchEvent(event);
+            }
+            console.log(fileInput.files);
+        });
+    }
 }
-fill();
+let operator = new Operator(new ElementFinder());
+operator.fill();
 
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  if (message && message.message === 'fill') {
-    fill();
-    fillResume();
-  }
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message && message.message === "fill") {
+        operator.fill();
+    }
 });
