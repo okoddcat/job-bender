@@ -24,7 +24,7 @@ A Chrome extension job apply for auto fill the forms on job position pages.
 ## How to setup
 
 1. open Chrome and clone this repo `git clone https://github.com/okoddcat/job-bender.git`
-2. `git pull` if you want to pull down the latest jobs
+2. `git pull --rebase --force` if you want to pull down the latest jobs. Please note that this will reset your local changes.
 3. go to chrome extensions `chrome://extensions/`
 4. click on the ` Load unpacked` button and choose this repo
 5. Pin this extension at the top right corner of your Chrome bar
